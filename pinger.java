@@ -46,7 +46,7 @@ class pinger
 			{
 				if(args.length!=8)
 				{
-				     System.out.println("Missing or extra parameters for pinger client");
+				     System.out.println("Missing or extra parameters for pinger client" );
 					 System.out.println("Usage: java pinger -l <local port> -h <remote hostname> -r <remote port> -n <number of packets>");
 					 System.exit(1);
 				}
