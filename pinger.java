@@ -44,10 +44,10 @@ class pinger
 			//CLIENT CODE 0=-l 1=port name 2=-h 3=remote hostname 4=-r 5=remote port 6=-n 7=numpack
 			if(args.length>6&&args[6].equalsIgnoreCase("-n"))
 			{
-				if(args.length!=8)
+				if(args.length!=8 || (!args[0].equalsIgnoreCase("-l"))||(!args[2].equalsIgnoreCase("-h"))||(!args[4].equalsIgnoreCase("-r")))
 				{
-				     System.out.println("Missing or extra parameters for pinger client" );
-					 System.out.println("Usage: java pinger -l <local port> -h <remote hostname> -r <remote port> -n <number of packets>");
+				     System.out.println("Missing, incorrect or extra parameters for pinger client");
+					 System.out.println("Usage: java pinger -l <local port>");
 					 System.exit(1);
 				}
 				int unreceived=0;  // keep track of lost packets
@@ -110,19 +110,16 @@ class pinger
 			}
 			else
 			{
-				if(args.length!=6)
+				if(args.length!=2|| (!args[0].equalsIgnoreCase("-l")))
 				{
-				     System.out.println("Missing or extra parameters for pinger server");
-					 System.out.println("Usage: java pinger -l <local port> -h <remote hostname> -r <remote port>");
+				     System.out.println("Missing, incorrect or extra parameters for pinger server");
+					 System.out.println("Usage: java pinger -l <local port>");
 					 System.out.println("IF YOU WANT TO RUN CLIENT: java pinger -l <local port> -h <remote hostname> -r <remote port> -n <number of packets>");		 
 					 System.exit(1);
 				}
 				long time=0;
 				int localport=Integer.parseInt(args[1]);
-				String remotehostname =args[3];
-				int remoteport=Integer.parseInt(args[5]);
 				DatagramSocket serversocket = new DatagramSocket(localport); 
-				InetAddress IPAddress = InetAddress.getByName(remotehostname); 
 				while(true) 
 				{ 
 					DatagramPacket recvpacket = new DatagramPacket(recvdata, recvdata.length); 
@@ -133,7 +130,7 @@ class pinger
 					System.out.println ("time="+ time +" from=" + recvpacket.getAddress() + " seq=" + byteArrayToInt(num));
 					// send packet
 					sentdata = recvpacket.getData(); 
-					DatagramPacket sendpacket = new DatagramPacket(sentdata, sentdata.length, IPAddress, remoteport); 
+					DatagramPacket sendpacket = new DatagramPacket(sentdata, sentdata.length, recvpacket.getAddress(), recvpacket.getPort()); 
 					serversocket.send(sendpacket); 
 				}
 			}
