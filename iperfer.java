@@ -44,8 +44,8 @@ class iperfer
 							{
 								//packet=("0").getBytes();  // set packet data to 0
 								OutputStream out = clientsocket.getOutputStream();
-								out.write(packet); // send packet
 								x++; // keep track of packets sent
+								out.write(packet); // send packet
 							} 
 							catch (Exception e1) 
 							{
