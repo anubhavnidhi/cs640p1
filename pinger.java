@@ -2,7 +2,7 @@
 PING
 	
 Run client : java pinger -l <local port> -h <remote hostname> -r <remote port> -n <number of packets>
-Run server : java pinger -l <local port> -h <remote hostname> -r <remote port>
+Run server : java pinger -l <local port>
 */
 
 import java.io.*; 
