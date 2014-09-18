@@ -28,8 +28,10 @@ class iperfer
 				final int serverport=Integer.parseInt(args[4]);
 				final Socket clientsocket = new Socket();
 				final SocketAddress sockaddr = new InetSocketAddress(serverhostname, serverport);
+				long start=0,end=0;
 				clientsocket.connect(sockaddr);
 					// Using thread so that sending packets stop when time-out occurs
+				start=System.currentTimeMillis();
 				Thread t1 = new Thread(new Runnable() {
 				public void run() 
 				{
@@ -40,7 +42,7 @@ class iperfer
 						{					
 							try 
 							{
-								packet=("0").getBytes();  // set packet data to 0
+								//packet=("0").getBytes();  // set packet data to 0
 								OutputStream out = clientsocket.getOutputStream();
 								out.write(packet); // send packet
 								x++; // keep track of packets sent
@@ -60,7 +62,9 @@ class iperfer
 				t1.start();
 				t1.join(time);  // run thread for specified amount of time
 				if(t1.isAlive()) t1.stop();
-				System.out.println("sent="+x+" kb rate="+((float)x)/time*1000+" mbps");   //print output as specified
+				end=System.currentTimeMillis();
+				long diff=end-start;
+				System.out.println("sent="+x+" kb rate="+((float)x)/diff+" mbps");   //print output as specified
 		}
 		else if(args[0].equalsIgnoreCase("-s"))  // SERVER CODE Parameters 0=-s 1=-p 2=listen port
 		{
@@ -89,7 +93,7 @@ class iperfer
 				{
 					end=System.currentTimeMillis();  // stop timer
 					time=end-start; // rate in milliseconds i.e 1 KB per ms
-					System.out.println("received="+x+" kb rate="+((float)x)/time*1000+" mbps"); //print output as specified
+					System.out.println("received="+x+" kb rate="+((float)x)/time+" mbps"); //print output as specified
 					clientsocket.close();
 				}
 		}
