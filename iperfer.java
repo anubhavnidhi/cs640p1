@@ -17,7 +17,7 @@ class iperfer
 		{
 		if(args[0].equalsIgnoreCase("-c")) // CLIENT CODE parameters 0=-c 1=-h 2=server hostname 3=-p 4=server port 5=-t 6=time
 		{
-				if(args.length!=7)
+				if(args.length!=7||(!args[1].equalsIgnoreCase("-h"))||(!args[3].equalsIgnoreCase("-p"))||(!args[5].equalsIgnoreCase("-t")))
 				{
 				     System.out.println("Missing or extra parameters for iperfer client");
 					 System.out.println("Usage: java iperfer -c -h <server hostname> -p <server port> -t <time>");
@@ -68,7 +68,7 @@ class iperfer
 		}
 		else if(args[0].equalsIgnoreCase("-s"))  // SERVER CODE Parameters 0=-s 1=-p 2=listen port
 		{
-				if(args.length!=3)
+				if(args.length!=3||(!args[1].equalsIgnoreCase("-p")))
 				{
 				     System.out.println("Missing or extra parameters for iperfer server");
 					 System.out.println("Usage: java iperfer -s -p <listen port>");
