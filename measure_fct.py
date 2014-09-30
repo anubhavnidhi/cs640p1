@@ -53,7 +53,7 @@ def updateHistory():
     values = [sumLat,numLat,mean]
     changes = computeChange()
     print "%s,%s,%s" % (",".join("%d" % (num) for num in counts),",".join("%.6f" % (num) for num in values), ",".join("%.3f" % (num) for num in changes))
-
+ 
     latencies = []
     synPkts = 0
     finPkts = 0
